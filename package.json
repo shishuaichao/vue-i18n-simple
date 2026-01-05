@@ -28,7 +28,8 @@
     "i18n-extractor": "^1.0.0",
     "i18next": "^25.7.3",
     "i18next-parser": "^9.0.2",
-    "vue-i18n": "^12.0.0-alpha.3"
+    "vue-i18n": "^12.0.0-alpha.3",
+    "xlsx": "^0.18.5"
   },
   "eslintConfig": {
     "root": true,
