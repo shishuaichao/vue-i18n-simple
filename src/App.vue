@@ -16,7 +16,7 @@ export default {
     const getLocale = async () => {
       try {
         let ms = await require('./i18n/newLocale.js')
-        console.log('ms', ms, setLocaleMessage)
+        // console.log('ms', ms, setLocaleMessage)
         setLocaleMessage('en-US', ms.default)
         switchLocale('en-US')
       } catch(err) {
@@ -27,7 +27,7 @@ export default {
       getLocale()
     })
     onMounted(() => {
-      console.log('app ')
+      // console.log('app ')
     })
   }
 }
