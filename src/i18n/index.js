@@ -15,17 +15,19 @@ export function createI18n(options) {
   
   // 2. 核心翻译函数：实现key解析、参数插值、回退逻辑
   const t = (key, params = {}) => {
+    console.log('key', key)
     // 步骤1：拆分分层key（如 'login.title' → ['login', 'title']）
     const keyPath = key.split('.');
     
     // 步骤2：从当前语言的messages中查找文本
     let text = keyPath.reduce((current, k) => {
+      console.log(current, k)
       return current && current[k] ? current[k] : null;
     }, options.messages[locale.value]);
 
     // 步骤3：找不到则返回key本身（兜底）
     if (!text) return key;
-
+    console.log('text', text)
     // 步骤4：参数插值（替换 {{变量名}}）
     return text.replace(/{{(\w+)}}/g, (_, paramKey) => params[paramKey] || '');
   };
