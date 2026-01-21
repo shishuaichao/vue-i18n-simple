@@ -22,3 +22,8 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+包含：
+vue-i18n简单版源码  测试用
+wechat 小程序 测试用

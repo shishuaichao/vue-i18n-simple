@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <testVue></testVue>
-    <button @click="switchLocale('zh-CN')">切换中文</button>
+    <!-- <button @click="switchLocale('zh-CN')">切换中文</button>
     <button @click="switchLocale('en-US')">切换英文</button>
     <div>
       {{ $t('common.submit') }}
@@ -9,14 +9,14 @@
     <div>
       {{ $t('common.cancel') }}
     </div>
-    <hr>
+    <hr>`
     <div>
       {{ $t('login.success', { opt }) }}
     </div>
     <hr>
     <div>
       {{ obj.submit }}
-    </div>
+    </div> -->
   </div>
 </template>
 

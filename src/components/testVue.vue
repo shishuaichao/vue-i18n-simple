@@ -14,9 +14,9 @@
   
   <script>
   import { ref, onMounted } from 'vue'
-  // import io from 'socket.io-client'
+  import io from 'socket.io-client'
   import moment from 'moment'
-  // import axios from 'axios'
+  import axios from 'axios'
   export default {
     name: 'HelloWorld',
     props: {
@@ -47,28 +47,27 @@
         }
         const cont = ref('')
 
-        // const getwechats = async () => {
-        //   // 核心：请求Py服务的接口地址（端口和Py服务一致）
-        //   const res = await axios.get('http://127.0.0.1:5000/api/wechats')
-        //   console.log(res.data)  // 拿到Py返回的数据
-        //   qaList.value = res.data || []
-        //   scrollToBottom()
-        // }
+        const getwechats = async () => {
+          // 核心：请求Py服务的接口地址（端口和Py服务一致）
+          const res = await axios.get('http://127.0.0.1:5000/api/wechats')
+          console.log(res.data)  // 拿到Py返回的数据
+          qaList.value = res.data || []
+          scrollToBottom()
+        }
 
         onMounted(() => {
-          // socket.value = io('http://127.0.0.1:5000', {
-          //   withCredentials: true, // 若后端有cookie鉴权需开启，否则可省略
-          //   transports: ['websocket']
-          // })
+          socket.value = io('http://127.0.0.1:5000', {
+            withCredentials: true, // 若后端有cookie鉴权需开启，否则可省略
+            transports: ['websocket']
+          })
 
-          // // 监听服务端消息
-          // socket.value.on('message', (reply) => {
-          //   console.log('服务端回复：', reply)
-          //   render(reply, 'a')
-          // })
+          // 监听服务端消息
+          socket.value.on('message', (reply) => {
+            console.log('服务端回复：', reply)
+            render(reply, 'a')
+          })
 
-          // // getwechats()
-          // console.log(getwechats)
+          getwechats()
 
         })
         return {
