@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <testVue></testVue>
+     <!-- <wechat></wechat> -->
     <!-- <button @click="switchLocale('zh-CN')">切换中文</button>
     <button @click="switchLocale('en-US')">切换英文</button>
     <div>
@@ -21,13 +22,15 @@
 </template>
 
 <script>
-import testVue from './testVue.vue'
 import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 import { useI18n } from '../i18n/index.js';
+import testVue from './testVue.vue'
+// import wechat from './wechat.vue';
 export default {
   components: {
     testVue,
+    // wechat,  
   },
   name: 'HelloWorld',
   props: {
@@ -39,12 +42,12 @@ export default {
       
       const getTeachers = async () => {
         // 核心：请求Py服务的接口地址（端口和Py服务一致）
-        const res = await axios.get('http://127.0.0.1:5000/api/teachers')
+        const res = await axios.get('http://172.20.10.2:5000/api/teachers')
         console.log(res.data)  // 拿到Py返回的数据
       }
       const addTeacher = async () => {
         // 核心：请求Py服务的接口地址（端口和Py服务一致）
-        const res = await axios.post('http://127.0.0.1:5000/api/add_teacher', { 
+        const res = await axios.post('http://172.20.10.2:5000/api/add_teacher', { 
           name: '史帅超sss',
           title: '特级',
           subject: '全部',

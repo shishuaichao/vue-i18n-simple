@@ -15,5 +15,12 @@ module.exports = defineConfig({
         __VUE_OPTIONS_API__: 'true' // 保留Options API（只用组合式API可设为false）
       })
     ]
-  }
+  },
+  devServer: {
+    port: 1234, // 自定义端口
+    host: '0.0.0.0', // 允许局域网访问
+    hot: true, // 热更新（修改代码无需刷新页面）
+    open: false, // 启动后自动打开浏览器
+    historyApiFallback: true // 解决 Vue Router 历史模式的 404 问题
+  },
 });
