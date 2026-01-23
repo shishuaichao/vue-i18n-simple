@@ -16,7 +16,7 @@
         <div class="msg_content">{{ msgInfo.content }}</div>
       </div>
       <div class="avatar">
-        <img :src="'https://fastly.picsum.photos/id/815/100/100.jpg?hmac=SnlfmMioPKPCearRlWHsBxmchMOgwjxYi7VohzE8uao'" alt="">
+        <img :src="msgInfo.avatar" alt="">
       </div>
     </div>
     <!-- 系统消息 -->

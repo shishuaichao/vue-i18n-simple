@@ -17,7 +17,7 @@ const sendMessage = () => {
     return;
   }
   // 触发发送消息的逻辑
-  console.log('发送消息:', inputMsg.value);
+  // console.log('发送消息:', inputMsg.value);
   emit('sendMessage', inputMsg.value)
   // 发送后清空输入框
   inputMsg.value = '';

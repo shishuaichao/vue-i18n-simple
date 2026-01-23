@@ -35,8 +35,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, defineEmits } from 'vue';
+const emit = defineEmits(['change'])
 
+const handleSubmit = () => {
+  let imgUrl = smallImgList.value.find(img => img.id === activeImgId.value).smallUrl
+  emit('change', imgUrl)  
+  activeImgId.value = null
+};
 
 const smallImgList = ref([]); // 存储批量小图
 const loadingImg = require('@/assets/loading.gif')
@@ -51,15 +57,6 @@ const getBatchSmallImgs = async (size, limit, page) => {
   }));
 };
 
-const activeImgId = ref(null); // 选中的图片ID
-const imageCheck = (id) => {
-  activeImgId.value = id;
-};
-
-const handleSubmit = () => {
-  // alert('头像修改功能待实现');
-};
-
 const isLoading = ref(false);
 const imgNum = 6
 const imgSize = '30/30'
@@ -68,6 +65,11 @@ const changeImgs = () => {
   isLoading.value = true;
   let pageNum = Math.floor(Math.random() * 10) + 1
   getBatchSmallImgs(imgSize, imgNum, pageNum);
+};
+
+const activeImgId = ref(null); 
+const imageCheck = (id) => {
+  activeImgId.value = id;
 };
 
 onMounted(() => {

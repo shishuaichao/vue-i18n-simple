@@ -1,6 +1,6 @@
 <template>
   <div class="username-edit-container">
-    <h3 class="edit-title">修改用户名</h3>
+    <h3 class="edit-title">用户名</h3>
     
     <!-- 用户名输入框 -->
     <div class="input-wrapper">
@@ -36,13 +36,14 @@
       :disabled="!isValid || !username"
       @click="handleSubmit"
     >
-      保存修改
+      保存 / 修改
     </button>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, defineEmits } from 'vue'
+const emit = defineEmits(['change'])
 
 // 响应式数据
 const username = ref('')
@@ -84,7 +85,7 @@ const handleBlur = () => {
 const handleSubmit = () => {
   if (isValid.value) {
     // 这里替换为你的实际提交逻辑
-    alert(`用户名已修改为：${username.value}`)
+    emit('change', username.value)
     // 示例：清空输入框
     username.value = ''
     showTip.value = false
