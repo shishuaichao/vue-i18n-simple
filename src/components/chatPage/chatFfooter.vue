@@ -41,6 +41,7 @@ const sendMessage = () => {
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
     will-change: bottom;
+    /* padding-bottom: 40px; */
 }
 .footer_pad {
     height: 50px;

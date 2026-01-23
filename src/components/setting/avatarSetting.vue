@@ -18,11 +18,10 @@
       确认
     </button>
   </div>
-
+  <div class="loading" v-if="isLoading">
+    <img :src="loadingImg" alt="">
+  </div>
   <div class="img-batch">
-    <div class="loading" v-if="isLoading">
-      <img :src="loadingImg" alt="">
-    </div>
     <img 
       :class="{ active: activeImgId === img.id }"
       v-for="img in smallImgList" 
@@ -30,6 +29,7 @@
       :src="img.smallUrl" 
       alt="小图"
       @click="imageCheck(img.id)"
+      @load="imgLoad"
     >
   </div>
 </template>
@@ -48,17 +48,25 @@ const smallImgList = ref([]); // 存储批量小图
 const loadingImg = require('@/assets/loading.gif')
 // 批量获取小图方法
 const getBatchSmallImgs = async (size, limit, page) => {
+  loadNum = 0
   const res = await fetch(`https://picsum.photos/v2/list?limit=${limit}&page=${page}`);
   const imgData = await res.json();
-  isLoading.value = false;
   smallImgList.value = imgData.map(item => ({
     id: item.id,
     smallUrl: `https://picsum.photos/${size}?image=${item.id}`
   }));
 };
 
-const isLoading = ref(false);
-const imgNum = 6
+let loadNum = 0
+const imgLoad = () => {
+  loadNum++
+  if (loadNum > 30) {
+    isLoading.value = false
+  }
+}
+
+const isLoading = ref(true);
+const imgNum = 48
 const imgSize = '30/30'
 const changeImgs = () => {
   smallImgList.value = [];

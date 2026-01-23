@@ -2,7 +2,7 @@
   <div class="chat_room_box">
     <indexSetting @canLink="linkStart" ref="indexSettingRef" v-show="settingShow"></indexSetting>
     <div class="main_container" v-show="!settingShow">
-      <chatHeader :count="onlineCount"></chatHeader>
+      <chatHeader :count="onlineCount" @setInfo="setUserInfo"></chatHeader>
       <div class="chat_content_box" ref="chatContent">
         <chatItem v-for="v,i in msgList" :key="i" :msgInfo="v" :userInfo="userInfo"></chatItem>
       </div>
@@ -43,6 +43,7 @@ export default {
     const onlineCount = ref(0)
     const userInfo = ref({})
     const linkStart = (info) => {
+      ws?.close()
       userInfo.value = info
       settingShow.value = false
       ws = io('http://172.20.10.2:5000', {
@@ -52,7 +53,7 @@ export default {
       // 链接成功 
       ws.on('connect_success', (data) => {
         console.log('连接成功，Socket ID：', data)
-        Toast.success('连接成功！');
+        // Toast.success('连接成功！');
         connectSuccess()
       })
       // 昵称设置成功 
@@ -82,7 +83,17 @@ export default {
       // 发送昵称到后台
       ws.emit('set_nickname', { ...userInfo.value })
       getAllChats()
-      ws.emit('system_msg', { content: `用户 ${userInfo.value.nickname} 加入了聊天`, ...userInfo.value } )
+      // ws.emit('system_msg', { content: `用户 ${userInfo.value.nickname} 加入了聊天`, ...userInfo.value } )
+    }
+
+    // 设置用户信息
+    const setUserInfo = (type) => {
+      settingShow.value = true
+      if (type === 'nickname') {
+        indexSettingRef.value.setNickname()
+      } else if (type === 'avatar') {
+        indexSettingRef.value.setAvatar()
+      }
     }
 
     // 滚动到底部
@@ -130,6 +141,7 @@ export default {
       chatContent,
       linkStart,
       indexSettingRef,
+      setUserInfo,
     }
   }
 

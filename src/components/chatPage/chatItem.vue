@@ -13,6 +13,7 @@
     <!-- 自己 -->
     <div class="msg_self msg_item right" v-if="msgInfo.type == 'message' && userInfo.id == msgInfo.id">
       <div class="msg_box">
+        <div class="nickname">{{ msgInfo.nickname }}</div>
         <div class="msg_content">{{ msgInfo.content }}</div>
       </div>
       <div class="avatar">
@@ -63,7 +64,7 @@ defineProps({
     overflow: hidden;
     margin: 0 10px;
     flex-shrink: 0;
-    border: 1px solid #ddd;
+    background-color: #f0f0f0;
   }
   .avatar img {
     width: 100%;
@@ -90,6 +91,9 @@ defineProps({
     width: 100%;
     font-weight: 500;
   }
+  .right .nickname {
+    text-align: right;
+  }
   .msg_content {
     max-width: 80%;
     position: relative;
@@ -112,7 +116,7 @@ defineProps({
   .right .msg_content::before {
     content: '';
     position: absolute;
-    top: 10px;
+    top: 6px;
     right: -5px;
     width: 0;
     height: 0;
