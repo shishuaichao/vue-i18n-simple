@@ -1,7 +1,7 @@
 <template>
   <!-- 2. 底部固定输入框 -->
   <div class="footer">
-    <input v-model="inputMsg" type="text" class="input-box" id="msgInput" placeholder="输入消息..." @change="sendMessage" @keyup.enter="sendMessage">
+    <input v-model="inputMsg" type="text" class="input-box" id="msgInput" placeholder="输入消息..." @change="sendMessage" @keyup.enter="sendMessage" @focus="focus">
     <div class="send-btn" :class="{'disabled': inputMsg.trim() === ''}" @click="sendMessage">发送</div>
   </div>
   <div class="footer_pad"></div>
@@ -10,7 +10,11 @@
 import { ref, defineEmits } from 'vue'
 const inputMsg = ref('')
 
-const emit = defineEmits(['sendMessage'])
+const emit = defineEmits(['sendMessage', 'focus'])
+
+const focus = () => {
+  emit('focus')
+}
 
 const sendMessage = () => {
   if (inputMsg.value.trim() === '') {

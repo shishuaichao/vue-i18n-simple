@@ -6,7 +6,7 @@
       <div class="chat_content_box" ref="chatContent">
         <chatItem v-for="v,i in msgList" :key="i" :msgInfo="v" :userInfo="userInfo"></chatItem>
       </div>
-      <chartFooter @sendMessage="sendMsg" />
+      <chartFooter @sendMessage="sendMsg"  @focus="scrollToBottom" />
     </div>
   </div>
 </template>
@@ -99,6 +99,7 @@ export default {
     // 滚动到底部
     const chatContent = ref(null)
     const scrollToBottom = () => {
+      console.log('scrollToBottom', chatContent.value.scrollHeight)
       if (!chatContent.value) return;
       setTimeout(() => {
         chatContent.value.scrollTop = chatContent.value.scrollHeight;
@@ -142,6 +143,7 @@ export default {
       linkStart,
       indexSettingRef,
       setUserInfo,
+      scrollToBottom,
     }
   }
 
