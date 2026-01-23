@@ -25,7 +25,7 @@
 import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 import { useI18n } from '../i18n/index.js';
-import testVue from './testVue.vue'
+import testVue from './chatRoom.vue/index.js'
 // import wechat from './wechat.vue';
 export default {
   components: {
