@@ -1,6 +1,6 @@
 <template>
   <!-- 1. 顶部固定导航栏 -->
-  <div class="header">聊天室({{ count }})</div>
+  <div class="header">劳资蜀道（{{ count }}）</div>
   <div class="header_pad"></div>
 </template>
 

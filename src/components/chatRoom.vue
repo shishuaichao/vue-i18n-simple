@@ -1,22 +1,12 @@
 <template>
-  <div class="main_container">
+  <div class="main_container" v-if="false">
     <chatHeader :count="onlineCount"></chatHeader>
     <div class="chat_content_box" ref="chatContent">
-      <!-- <div class="item_box clearfix" v-for="v,i in msgList" :key="i">
-        <div v-if="v.type == 'message'" class="time" :class="{ 't_right': userInfo.id == v.id }">
-          <span style="color: #999; font-size: 14px;">{{ v.nickname }}</span>
-        </div>
-        <div v-if="v.type == 'message'"  class="item" :class="{ 'right': userInfo.id == v.id }">
-          {{ v.content }}
-        </div>
-        <div class="tips" v-if="v.type == 'system_msg'">
-          {{ v.content }}
-        </div>
-      </div> -->
       <chatItem v-for="v,i in msgList" :key="i" :msgInfo="v" :userInfo="userInfo"></chatItem>
     </div>
     <chartFooter @send-message="sendMsg" />
   </div>
+  <indexSetting></indexSetting>
 </template>
 
 <script>
@@ -29,13 +19,15 @@ import { Toast } from '@/components/Toast/index.js';
 import chatHeader from './chatPage/chatHeader.vue';
 import chartFooter from './chatPage/chatFfooter.vue';
 import chatItem from './chatPage/chatItem.vue';
+import indexSetting from './setting/avatarSetting.vue';
 
 export default {
-  name: 'HelloWorld',
+  name: 'chatRoom',
   components: {
     chatHeader,
     chartFooter,
     chatItem,
+    indexSetting,
   },
   props: {
     msg: String
@@ -43,7 +35,6 @@ export default {
   setup() {
     // Toast.warning('请注意！');
     // Toast.error('请求失败，请重试！');
-
 
     let ws = null
     onBeforeMount(() => {

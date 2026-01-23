@@ -16,7 +16,7 @@
         <div class="msg_content">{{ msgInfo.content }}</div>
       </div>
       <div class="avatar">
-        <img :src="userInfo.avatar" alt="">
+        <img :src="'https://fastly.picsum.photos/id/815/100/100.jpg?hmac=SnlfmMioPKPCearRlWHsBxmchMOgwjxYi7VohzE8uao'" alt="">
       </div>
     </div>
     <!-- 系统消息 -->
@@ -49,20 +49,26 @@ defineProps({
     text-align: center;
     color: #999;
     font-size: 14px;
+    margin: 20px 0;
   }
   .msg_item {
     display: flex;
     text-align: left;
-    margin-bottom: 10px;
+    margin-bottom: 16px;
   }
   .avatar {
     width: 40px;
     height: 40px;
-    border-radius: 4px;
+    border-radius: 8px;
     overflow: hidden;
     margin: 0 10px;
     flex-shrink: 0;
     border: 1px solid #ddd;
+  }
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   .msg_box {
     flex: 1;
@@ -82,6 +88,7 @@ defineProps({
     height: 14px;
     line-height: 10px;
     width: 100%;
+    font-weight: 500;
   }
   .msg_content {
     max-width: 80%;
@@ -89,6 +96,7 @@ defineProps({
     padding: 6px 12px;
     display: flex;
     align-items: center;
+    line-height: 1.4;
   }
   .left .msg_content::before {
     content: '';

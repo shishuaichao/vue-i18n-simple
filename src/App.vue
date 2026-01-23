@@ -68,5 +68,14 @@ html, body {
 
 * {
   box-sizing: border-box;
+  /* 全局禁用双击缩放，保留滚动/点击 */
+  touch-action: manipulation;
+}
+
+
+/* 仅针对图片（避免影响其他交互） */
+img {
+  touch-action: manipulation;
+  pointer-events: auto; /* 保留点击事件 */
 }
 </style>
