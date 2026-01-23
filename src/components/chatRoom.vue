@@ -70,6 +70,7 @@ export default {
         console.log('系统消息：', data)
         if (data.id !== userInfo.value.id) {
           Toast.tips(data.content);
+          render(data)
         }
       })
       // 在线人数
@@ -83,12 +84,13 @@ export default {
       // 发送昵称到后台
       ws.emit('set_nickname', { ...userInfo.value })
       getAllChats()
-      // ws.emit('system_msg', { content: `用户 ${userInfo.value.nickname} 加入了聊天`, ...userInfo.value } )
+      ws.emit('system_msg', { content: `用户 ${userInfo.value.nickname} 加入了聊天`, ...userInfo.value } )
     }
 
     // 设置用户信息
     const setUserInfo = (type) => {
       settingShow.value = true
+      ws?.close()
       if (type === 'nickname') {
         indexSettingRef.value.setNickname()
       } else if (type === 'avatar') {
@@ -127,6 +129,19 @@ export default {
       console.log('sendMsg1111', userInfo.value )
       ws.emit('message', msgData)
     }
+
+    // 1. 核心监听：visibilitychange 事件（通用所有浏览器）
+    document.addEventListener('visibilitychange', () => {
+      // document.hidden 为 true 表示页面不可见（切后台），false 表示可见（切前台）
+      console.log('visibilitychange', document.hidden)
+      if (document.hidden) {
+        // 切到后台
+        ws.close()
+      } else {
+        // 切到前台
+        indexSettingRef.value.checkUser()
+      }
+    });
 
     const indexSettingRef = ref(null)
     onMounted(() => {
