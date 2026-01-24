@@ -2,7 +2,7 @@
   <div class="chat_room_box">
     <indexSetting @canLink="linkStart" ref="indexSettingRef" v-show="settingShow"></indexSetting>
     <div class="main_container" v-show="!settingShow">
-      <chatHeader :count="onlineCount" @setInfo="setUserInfo"></chatHeader>
+      <chatHeader :onlineUser="onlineUser"  @setInfo="setUserInfo"></chatHeader>
       <div class="chat_content_box" ref="chatContent">
         <chatItem v-for="v,i in msgList" :key="i" :msgInfo="v" :userInfo="userInfo"></chatItem>
       </div>
@@ -40,7 +40,7 @@ export default {
     const settingShow = ref(true)
     
     let ws = null
-    const onlineCount = ref(0)
+    const onlineUser = ref(0)
     const userInfo = ref({})
     const linkStart = (info) => {
       ws?.close()
@@ -77,7 +77,7 @@ export default {
       // 在线人数
       ws.on('online_count', (data) => {
         console.log('在线人数：', data)
-        onlineCount.value = Object.keys(data).length
+        onlineUser.value = data
       })
     }
 
@@ -158,7 +158,7 @@ export default {
       msgList,
       moment,
       userInfo,
-      onlineCount,
+      onlineUser,
       sendMsg,
       chatContent,
       linkStart,

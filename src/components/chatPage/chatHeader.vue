@@ -4,7 +4,10 @@
     <div class="left"> 
       设置
     </div>
-    <div class="title">劳资蜀道（{{ count }}）</div>
+    <div class="title">
+      劳资蜀道（{{ onlineUser.length }}）
+      <!-- <span v-for="v,i in onlineUser" :key="i">{{ v.nickname }}</span> -->
+    </div>
     <div class="right">
       <div class="setting" @click="showSetting = !showSetting">设置</div>
       <div class="setting_box" v-if="showSetting" ref="settingBoxRef">
@@ -32,8 +35,8 @@ import { defineProps, defineEmits, ref } from 'vue';
 // 仅保留核心配置：文字、高度、背景色
 defineProps({
   // 中间显示的文字
-  count: {
-    type: Number,
+  onlineUser: {
+    type: Array,
     required: true,
   },
 });
