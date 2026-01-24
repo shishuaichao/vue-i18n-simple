@@ -8,7 +8,7 @@
 import nicknameSetting from './nicknameSetting.vue';
 import avatarSetting from './avatarSetting.vue';
 import { defineEmits, defineExpose, ref } from 'vue'
-import { Toast } from '@/components/Toast/index.js';
+import { showSuccessToast } from 'vant';
 import { v4 as uuId } from 'uuid';
 
 const emit = defineEmits(['canLink'])
@@ -17,13 +17,13 @@ const emit = defineEmits(['canLink'])
 const nicknameChange = (nickname) => {
   console.log('nicknameChange', nickname)
   localStorage.setItem('nickname', nickname)
-  Toast.success('用户名修改成功')
+  showSuccessToast('修改成功')
   canLink()
 }
 
 const avatarChange = (avatar) => {
   localStorage.setItem('avatar', avatar)
-  Toast.success('头像修改成功')
+  showSuccessToast('修改成功')
   console.log('avatarChange', avatar)
   canLink()
 }

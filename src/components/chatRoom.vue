@@ -16,8 +16,7 @@ import { ref, onMounted, nextTick } from 'vue'
 import io from 'socket.io-client'
 import moment from 'moment'
 import axios from 'axios'
-
-import { Toast } from '@/components/Toast/index.js';
+import { showToast } from 'vant';
 import chatHeader from './chatPage/chatHeader.vue';
 import chartFooter from './chatPage/chatFfooter.vue';
 import chatItem from './chatPage/chatItem.vue';
@@ -35,8 +34,6 @@ export default {
     msg: String
   },
   setup() {
-    // Toast.warning('请注意！');
-    // Toast.error('请求失败，请重试！');
     const settingShow = ref(true)
     
     let ws = null
@@ -53,7 +50,6 @@ export default {
       // 链接成功 
       ws.on('connect_success', (sid) => {
         console.log('连接成功，sid：', sid)
-        // Toast.success('连接成功！');
         ws.emit('set_nickname', { ...userInfo.value })
         getAllChats()
       })
@@ -64,13 +60,14 @@ export default {
       // 聊天消息
       ws.on('message', (data) => {
         console.log('普通消息：', data)
+        
         render(data)
       })
       // 系统消息
       ws.on('system_msg', (data) => {
         console.log('系统消息：', data)
         if (data.id !== userInfo.value.id) {
-          Toast.tips(data.content);
+          showToast(data.content);
           render(data)
         }
       })
@@ -137,6 +134,7 @@ export default {
         indexSettingRef.value.checkUser()
       }
     });
+
 
     const indexSettingRef = ref(null)
     onMounted(() => {

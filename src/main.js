@@ -1,9 +1,11 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import Vant from 'vant';
+import 'vant/lib/index.css';
+
 
 import { createI18n } from './i18n/index.js';
 import messages from './i18n/locales.js';
-import Toast from './components/Toast/index.js';
 
 // 创建i18n实例
 const i18n = createI18n({
@@ -13,6 +15,6 @@ const i18n = createI18n({
 
 // 注册插件
 const app = createApp(App);
+app.use(Vant);
 app.use(i18n);
-app.use(Toast);
 app.mount('#app');
