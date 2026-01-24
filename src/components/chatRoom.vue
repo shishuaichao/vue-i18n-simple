@@ -51,10 +51,11 @@ export default {
         transports: ['websocket']
       })
       // 链接成功 
-      ws.on('connect_success', (data) => {
-        console.log('连接成功，Socket ID：', data)
+      ws.on('connect_success', (sid) => {
+        console.log('连接成功，sid：', sid)
         // Toast.success('连接成功！');
-        connectSuccess()
+        ws.emit('set_nickname', { ...userInfo.value })
+        getAllChats()
       })
       // 昵称设置成功 
       ws.on('username_success', (data) => {
@@ -78,13 +79,6 @@ export default {
         console.log('在线人数：', data)
         onlineCount.value = data
       })
-    }
-
-    const connectSuccess = () => {
-      // 发送昵称到后台
-      ws.emit('set_nickname', { ...userInfo.value })
-      getAllChats()
-      ws.emit('system_msg', { content: `用户 ${userInfo.value.nickname} 加入了聊天`, ...userInfo.value } )
     }
 
     // 设置用户信息

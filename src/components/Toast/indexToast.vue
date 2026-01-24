@@ -6,7 +6,7 @@
       :style="{ top: `${top}px` }"
     >
       <div class="toast-content" :class="typeClass">
-        <i v-if="type" class="toast-icon" :class="iconClass"></i>
+        <!-- <i v-if="type" class="toast-icon" :class="iconClass"></i> -->
         <span class="toast-text">{{ message }}</span>
       </div>
     </div>
@@ -44,15 +44,15 @@ let timer = null;
 
 // 计算样式类
 const typeClass = computed(() => `toast-${props.type}`);
-const iconClass = computed(() => {
-  const iconMap = {
-    success: 'toast-icon-success',
-    warning: 'toast-icon-warning',
-    error: 'toast-icon-error',
-    loading: 'toast-icon-loading'
-  };
-  return iconMap[props.type] || '';
-});
+// const iconClass = computed(() => {
+//   const iconMap = {
+//     success: 'toast-icon-success',
+//     warning: 'toast-icon-warning',
+//     error: 'toast-icon-error',
+//     loading: 'toast-icon-loading'
+//   };
+//   return iconMap[props.type] || '';
+// });
 
 // 监听显示状态，自动关闭
 watch(visible, (newVal) => {

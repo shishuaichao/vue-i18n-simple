@@ -50,7 +50,7 @@ defineProps({
     text-align: center;
     color: #999;
     font-size: 14px;
-    margin: 20px 0;
+    margin: 10px 0;
   }
   .msg_item {
     display: flex;
