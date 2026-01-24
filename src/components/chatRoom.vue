@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, nextTick } from 'vue'
 import io from 'socket.io-client'
 import moment from 'moment'
 import axios from 'axios'
@@ -77,7 +77,7 @@ export default {
       // 在线人数
       ws.on('online_count', (data) => {
         console.log('在线人数：', data)
-        onlineCount.value = data
+        onlineCount.value = Object.keys(data).length
       })
     }
 
@@ -95,25 +95,26 @@ export default {
     // 滚动到底部
     const chatContent = ref(null)
     const scrollToBottom = () => {
-      console.log('scrollToBottom', chatContent.value.scrollHeight)
       if (!chatContent.value) return;
-      setTimeout(() => {
-        chatContent.value.scrollTop = chatContent.value.scrollHeight;
-      }, 0);
+      nextTick(() => {
+        chatContent.value.scrollTop = chatContent.value.scrollHeight
+      })
     }
 
     // 聊天记录
     const msgList = ref([])
+    const originList = ref([])
     const getAllChats = async () => {
       const res = await axios.get('http://172.20.10.2:5000/api/wechats')
-      msgList.value = res.data || []
+      originList.value = res.data || []
+      msgList.value = originList.value.splice(-40)
       scrollToBottom()
     }
 
     // 渲染消息
     const render = (msgData) => {
       msgList.value.push(msgData)
-      console.log(msgList.value)
+      // console.log(msgList.value)
       scrollToBottom()
     }
 
@@ -140,6 +141,17 @@ export default {
     const indexSettingRef = ref(null)
     onMounted(() => {
       indexSettingRef.value.checkUser()
+      chatContent.value.addEventListener('scroll', () => {
+        if (!originList.value.length) return
+        if (chatContent.value.scrollTop == 0) {
+          let lastHeight = chatContent.value.scrollHeight
+          let newArr = originList.value.splice(-30)
+          msgList.value = [...newArr, ...msgList.value]
+          nextTick(() => {
+            chatContent.value.scrollTop = chatContent.value.scrollHeight - lastHeight
+          })
+        }
+      })
     })
     return {
       settingShow,
